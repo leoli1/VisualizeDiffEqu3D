@@ -47,10 +47,10 @@ float dz_dt(){
 }*/
 
 // De Jong Attractor
-float a = -2.24;
-float b = 0.43;
-float c = -0.65;
-float d = -2.43;
+float a = 2.01;
+float b = -2.53;
+float c = 1.61;
+float d = -0.33;
 
 float scaleFactor = 10;
 float dx_dt(){
@@ -79,6 +79,7 @@ void setup(){
 
 void draw(){
   background(0);
+  
   float dx = dx_dt()*dt;
   float dy = dy_dt()*dt;
   float dz = dz_dt()*dt;
@@ -98,17 +99,16 @@ void draw(){
   beginShape();
   strokeWeight(0.1);
   float h = 0;
-  for (PVector v : points){
+  for (PVector p : points){
     stroke(h,255,255);
    //stroke(255,h,0);
     tint(255,128);
-    vertex(v.x,v.y,v.z);
+    vertex(p.x,p.y,p.z);
     h += 0.5;
     h = h%255;
   }
   endShape();
   popMatrix();
-  //println(x,y,z);
   if (keyPressed && key == 's'){
     println("Time passed: "+ points.size()*dt);
     println("dt: "+dt);
