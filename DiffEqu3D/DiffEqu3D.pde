@@ -1,11 +1,12 @@
 import peasy.*;
 
-float x = 0;
+float x = 1;
 float y = 0;
 float z = 0;
 
 float dt = 0.01;
 
+float colorStep = 0.1;
 ArrayList<PVector> points = new ArrayList<PVector>();
 
 PeasyCam cam;
@@ -47,7 +48,7 @@ float dz_dt(){
 }*/
 
 // De Jong Attractor
-float a = 2.01;
+/*float a = 2.01;
 float b = -2.53;
 float c = 1.61;
 float d = -0.33;
@@ -61,6 +62,45 @@ float dy_dt(){
 }
 float dz_dt(){
   return 0;
+}*/
+
+// Chua
+/*float a = 1;
+float R = 1;
+float b = 1;
+float C = 1;
+
+float scaleFactor = 10;
+
+float f(float x){
+  return x;
+}
+float dx_dt(){
+  return a*(y-x-f(x));
+}
+float dy_dt(){
+  return (x-y+R*z)/(R*C);
+}
+float dz_dt(){
+  return -b*y;
+}*/
+
+// Thomas' cyclically symmetric attractor
+//float b = 0.32899; // circle
+//float b = 0.208186;
+//float b = 0;
+float b = 0.1998;
+
+float scaleFactor = 10;
+
+float dx_dt(){
+  return sin(y)-b*x;
+}
+float dy_dt(){
+  return sin(z)-b*y;
+}
+float dz_dt(){
+  return sin(x)-b*z;
 }
 
 void setup(){
@@ -68,9 +108,9 @@ void setup(){
   background(0);
   cam = new PeasyCam(this,0,0,0,10);
   cam.setWheelScale(0.5);
+  cam.setMinimumDistance(0.00000000001);
   colorMode(HSB);
   float fov = PI/3.0;
-  float cameraZ = (height/2.0) / tan(fov/2.0);
   perspective(fov, float(width)/float(height), 
             0.0001, 10000000);
             
@@ -104,7 +144,7 @@ void draw(){
    //stroke(255,h,0);
     tint(255,128);
     vertex(p.x,p.y,p.z);
-    h += 0.5;
+    h += colorStep;
     h = h%255;
   }
   endShape();
