@@ -1,6 +1,6 @@
 import peasy.*;
 
-float x = 1;
+float x = 0.01;
 float y = 0;
 float z = 0;
 
@@ -103,6 +103,22 @@ float dz_dt(){
   return sin(x)-b*z;
 }
 
+/*
+float a = 0.1;
+float b = 0.3;
+float c = 0.4;
+
+float scaleFactor = 10;
+float dx_dt(){
+  return c*y/sqrt(x*x*y*y+a);
+}
+float dy_dt(){
+  return -tan(x)/sqrt(y*y*x*x+b);
+}
+float dz_dt(){
+  return sin(PI*x);
+}
+*/
 void setup(){
   size(1024,1024,P3D);
   background(0);
@@ -149,6 +165,7 @@ void draw(){
   }
   endShape();
   popMatrix();
+  
   if (keyPressed && key == 's'){
     println("Time passed: "+ points.size()*dt);
     println("dt: "+dt);
